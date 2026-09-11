@@ -1,0 +1,13 @@
+[
+  {
+    "username": "EERTO",
+    "accountType": "offline",
+    "theme": "galaxy",
+    "autoLogin": false,
+    "loginPassword": "",
+    "autoCommands": [],
+    "autoServerSelect": true,
+    "serverSelectItem": "grass_block",
+    "chestPos": null
+  }
+]
