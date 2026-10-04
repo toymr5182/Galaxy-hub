@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap');
+
+
+/* ==========================================================================
+   >>> ย้ายมาจาก index.js (CSS ทั้งหมดของหน้าเว็บอยู่ในไฟล์นี้) <<<
+   1) ตัวแปรสีของธีม  2) CSS หน้า /bot/:id  3) CSS ธีม Pixel 18-bit
+   ธีมที่ใช้ถูกกำหนดด้วย <html data-theme="..."> และหน้า bot ใช้ <body class="page-bot">
+   ========================================================================== */
+
+/* ---------- 1) THEMES ---------- */
+html[data-theme="galaxy"] {
+  --bg: radial-gradient(ellipse at top, #1a1a3a 0%, #050510 60%);
+  --panel: rgba(20,20,45,0.85);
+  --accent1: #a855f7;
+  --accent2: #3b82f6;
+  --accent3: #10b981;
+  --border: rgba(168,85,247,0.3);
+  --glow: #a855f7;
+  --title-grad: linear-gradient(135deg, #3b82f6, #a855f7, #10b981);
+  --show-stars: 1;
+}
+html[data-theme="nebula"] {
+  --bg: radial-gradient(ellipse at top, #3a1a1a 0%, #100505 60%);
+  --panel: rgba(45,20,20,0.85);
+  --accent1: #f43f5e;
+  --accent2: #fb923c;
+  --accent3: #fbbf24;
+  --border: rgba(244,63,94,0.3);
+  --glow: #f43f5e;
+  --title-grad: linear-gradient(135deg, #f43f5e, #fb923c, #fbbf24);
+  --show-stars: 1;
+}
+html[data-theme="matrix"] {
+  --bg: radial-gradient(ellipse at top, #001a00 0%, #000500 60%);
+  --panel: rgba(0,20,0,0.9);
+  --accent1: #00ff41;
+  --accent2: #00cc33;
+  --accent3: #39ff14;
+  --border: rgba(0,255,65,0.3);
+  --glow: #00ff41;
+  --title-grad: linear-gradient(135deg, #00ff41, #39ff14, #00cc33);
+  --show-stars: 0;
+}
+html[data-theme="ocean"] {
+  --bg: radial-gradient(ellipse at top, #0a1628 0%, #020810 60%);
+  --panel: rgba(10,22,45,0.9);
+  --accent1: #06b6d4;
+  --accent2: #0ea5e9;
+  --accent3: #38bdf8;
+  --border: rgba(6,182,212,0.3);
+  --glow: #06b6d4;
+  --title-grad: linear-gradient(135deg, #0ea5e9, #06b6d4, #38bdf8);
+  --show-stars: 0;
+}
+html[data-theme="gold"] {
+  --bg: radial-gradient(ellipse at top, #1a1500 0%, #0a0800 60%);
+  --panel: rgba(30,25,0,0.9);
+  --accent1: #f59e0b;
+  --accent2: #fcd34d;
+  --accent3: #d97706;
+  --border: rgba(245,158,11,0.3);
+  --glow: #f59e0b;
+  --title-grad: linear-gradient(135deg, #f59e0b, #fcd34d, #d97706);
+  --show-stars: 1;
+}
+html[data-theme="pixel"] {
+  --bg: linear-gradient(rgba(255,255,255,0.025) 50%, transparent 50%) 0 0/4px 4px, #14182c;
+  --panel: rgba(32,36,64,0.94);
+  --accent1: #60b89c;
+  --accent2: #7888dc;
+  --accent3: #dc9c64;
+  --border: rgba(96,184,156,0.40);
+  --glow: #60b89c;
+  --title-grad: linear-gradient(90deg, #60b89c 0 34%, #7888dc 34% 67%, #dc9c64 67% 100%);
+  --show-stars: 0;
+  --text: #d0d4e4;
+  --text-dim: rgba(208,212,228,0.62);
+}
+
+/* ---------- 2) หน้า /bot/:id (เดิมอยู่ใน <style> ของ index.js) ---------- */
+body.page-bot { transition:background 0.5s; }
+body.page-bot .tab-nav {
+display: flex;
+      gap: 4px;
+      margin-bottom: 16px;
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 4px;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+}
+body.page-bot .tab-btn {
+flex: 1;
+      padding: 10px 8px;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 13px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      min-width: 70px;
+}
+body.page-bot .tab-btn:hover {
+background: rgba(255,255,255,0.05);
+      color: #fff;
+}
+body.page-bot .tab-btn.active {
+background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 0 12px var(--glow);
+}
+body.page-bot .tab-content { display: none; }
+body.page-bot .tab-content.active { display: block; }
+/* ---- Server UI (PIN pad) ---- */
+body.page-bot .ui-text { white-space:pre-wrap;font-size:14px;margin-bottom:8px;text-align:center; }
+body.page-bot .ui-dots { text-align:center;font-size:26px;letter-spacing:6px;margin-bottom:6px; }
+body.page-bot .ui-left { text-align:center;color:#facc15;font-size:13px;margin-bottom:8px; }
+body.page-bot .kp-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px; }
+body.page-bot .kp-btn { min-height:56px;font-size:22px;font-weight:700;border-radius:10px;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.08);color:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;cursor:pointer; }
+body.page-bot .kp-btn:active,
+body.page-bot .kp-btn.pressed { background:rgba(255,255,255,0.28);transform:scale(0.96); }
+body.page-bot .kp-btn[disabled] { opacity:0.35; }
+body.page-bot .kp-btn.empty { visibility:hidden; }
+body.page-bot .kp-exit { width:100%;margin-top:4px;font-size:13px;padding:8px;border-radius:8px;border:1px solid rgba(239,68,68,0.45);background:transparent;color:inherit; }
+body.page-bot .ui-spin { width:34px;height:34px;border:4px solid rgba(255,255,255,0.18);border-top-color:#facc15;border-radius:50%;animation:uispin 0.9s linear infinite;margin:14px auto 10px; }
+@keyframes uispin {to{transform:rotate(360deg)}}
+body.page-bot .kp-hold { width:100%;margin-top:8px;font-size:13px;padding:8px;border-radius:8px;border:1px dashed rgba(255,255,255,0.3);background:transparent;color:inherit; }
+body.page-bot .kp-note { font-size:12px;color:var(--text-dim);text-align:center;margin:6px 0 4px;word-break:break-word; }
+/* ---- Manual control ---- */
+body.page-bot .ctl-pad { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:320px;margin:0 auto 12px; }
+body.page-bot .ctl-btn { min-height:60px;font-size:22px;font-weight:700;border-radius:12px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:inherit;touch-action:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;cursor:pointer; }
+body.page-bot .ctl-btn.on { background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;box-shadow:0 0 12px var(--glow); }
+body.page-bot .ctl-btn.small { min-height:48px;font-size:15px; }
+body.page-bot .ctl-row { display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px; }
+body.page-bot .ctl-row > * { flex:1;min-width:84px; }
+body.page-bot .ctl-sub { font-size:12px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;margin:6px 0 8px; }
+body.page-bot .mv-pad { display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;max-width:320px; }
+body.page-bot .mv-btn { min-height:52px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:4px;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none; }
+body.page-bot .mv-btn small { opacity:.6;font-size:10px; }
+body.page-bot .btn.mv-on { background:rgba(99,102,241,0.6)!important;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,0.25); }
+body.page-bot .ent-row { display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:13px; }
+/* ✅ ข้อ 10: Responsive สำหรับมือถือ */
+@media (max-width: 600px) {
+  body.page-bot .tab-btn { font-size: 11px; padding: 8px 4px; min-width: 60px; }
+  body.page-bot .bot-info-panel .bot-info-header {
+flex-direction: column;
+        align-items: flex-start;
+  }
+  body.page-bot .bot-info-panel .bot-info-details {
+margin-left: 0;
+        margin-top: 8px;
+  }
+  body.page-bot .bot-info-panel .badge {
+align-self: flex-start;
+        margin-top: 8px;
+  }
+  body.page-bot .info-stats-row { flex-wrap: wrap; }
+  body.page-bot .info-stat { min-width: 80px; }
+  body.page-bot .btn-block {
+padding: 12px;
+        font-size: 14px;
+  }
+  body.page-bot .chat-input-wrap { flex-direction: column; }
+  body.page-bot .chat-input-wrap .input {
+width: 100%;
+        margin-bottom: 8px;
+  }
+  body.page-bot .chat-input-wrap .btn-icon-send { width: 100%; }
+}
+
+/* ---------- 3) ธีม Pixel 18-bit (เดิมคือ PIXEL_CSS ใน index.js) ---------- */
+html[data-theme="pixel"] { --pxf:'Pixelify Sans','Kanit',monospace;--px-shadow:#0c0e1c; }
+html[data-theme="pixel"] body { image-rendering:pixelated;-webkit-font-smoothing:none; }
+html[data-theme="pixel"] .navbar { backdrop-filter:none;background:#0c0e1c;border-bottom:4px solid var(--border); }
+html[data-theme="pixel"] .navbar-brand,
+html[data-theme="pixel"] .section-title,
+html[data-theme="pixel"] .info-stat-value,
+html[data-theme="pixel"] .info-stat-label,
+html[data-theme="pixel"] .badge,
+html[data-theme="pixel"] .tab-btn,
+html[data-theme="pixel"] .btn,
+html[data-theme="pixel"] .theme-btn,
+html[data-theme="pixel"] .bot-info-name,
+html[data-theme="pixel"] .uptime-chip,
+html[data-theme="pixel"] .kp-btn,
+html[data-theme="pixel"] .kp-exit,
+html[data-theme="pixel"] .kp-hold,
+html[data-theme="pixel"] .ui-dots { font-family:var(--pxf)!important;letter-spacing:1px; }
+html[data-theme="pixel"] .navbar-brand { -webkit-text-fill-color:transparent; }
+html[data-theme="pixel"] .panel,
+html[data-theme="pixel"] .bot-card,
+html[data-theme="pixel"] .modal-box,
+html[data-theme="pixel"] .chat-container,
+html[data-theme="pixel"] .inv-panel,
+html[data-theme="pixel"] .bot-info-panel {
+border-radius:0!important;border:2px solid var(--border)!important;backdrop-filter:none!important;
+      box-shadow:4px 4px 0 var(--px-shadow)!important;
+      clip-path:polygon(0 6px,6px 6px,6px 0,calc(100% - 6px) 0,calc(100% - 6px) 6px,100% 6px,100% calc(100% - 6px),calc(100% - 6px) calc(100% - 6px),calc(100% - 6px) 100%,6px 100%,6px calc(100% - 6px),0 calc(100% - 6px));
+}
+html[data-theme="pixel"] .panel:hover,
+html[data-theme="pixel"] .bot-card:hover { transform:none!important; }
+html[data-theme="pixel"] .info-stat { border-radius:0!important;border:2px solid var(--border)!important;background:rgba(12,14,28,0.55)!important;box-shadow:inset -3px -3px 0 rgba(0,0,0,0.35),inset 3px 3px 0 rgba(255,255,255,0.05)!important; }
+html[data-theme="pixel"] .btn,
+html[data-theme="pixel"] .btn-manage,
+html[data-theme="pixel"] .btn-delete-card,
+html[data-theme="pixel"] .btn-icon,
+html[data-theme="pixel"] .btn-icon-add,
+html[data-theme="pixel"] .btn-icon-send,
+html[data-theme="pixel"] .tab-btn,
+html[data-theme="pixel"] .theme-btn,
+html[data-theme="pixel"] .kp-btn,
+html[data-theme="pixel"] .kp-exit,
+html[data-theme="pixel"] .kp-hold,
+html[data-theme="pixel"] .ctl-btn,
+html[data-theme="pixel"] .toggle-slider,
+html[data-theme="pixel"] .toggle-slider:before,
+html[data-theme="pixel"] .badge,
+html[data-theme="pixel"] .uptime-chip,
+html[data-theme="pixel"] .input,
+html[data-theme="pixel"] .select,
+html[data-theme="pixel"] .input-sm,
+html[data-theme="pixel"] .inv-slot,
+html[data-theme="pixel"] .inv-stat-chip { border-radius:0!important; }
+html[data-theme="pixel"] .btn,
+html[data-theme="pixel"] .btn-manage,
+html[data-theme="pixel"] .tab-btn.active,
+html[data-theme="pixel"] .kp-btn,
+html[data-theme="pixel"] .ctl-btn { box-shadow:0 4px 0 var(--px-shadow)!important;transition:none!important; }
+html[data-theme="pixel"] .btn:active,
+html[data-theme="pixel"] .kp-btn:active,
+html[data-theme="pixel"] .kp-btn.pressed,
+html[data-theme="pixel"] .ctl-btn:active { transform:translateY(3px)!important;box-shadow:0 1px 0 var(--px-shadow)!important; }
+html[data-theme="pixel"] .btn:hover,
+html[data-theme="pixel"] .theme-btn:hover { transform:none!important;filter:brightness(1.08); }
+html[data-theme="pixel"] .btn-primary,
+html[data-theme="pixel"] .tab-btn.active { background:var(--accent2)!important;color:#14182c!important; }
+html[data-theme="pixel"] .btn-success { background:var(--accent1)!important;color:#14182c!important; }
+html[data-theme="pixel"] .btn-warning { background:var(--accent3)!important;color:#14182c!important; }
+html[data-theme="pixel"] .btn-danger { background:#c85c6c!important;color:#14182c!important; }
+html[data-theme="pixel"] .badge { border:2px solid currentColor;box-shadow:none!important; }
+html[data-theme="pixel"] .badge::before,
+html[data-theme="pixel"] .badge::after { border-radius:0!important;animation:none!important; }
+html[data-theme="pixel"] .kp-btn { background:#2c3254!important;border:2px solid var(--border)!important;font-size:22px; }
+html[data-theme="pixel"] .kp-btn.empty { background:transparent!important;border:0!important;box-shadow:none!important; }
+html[data-theme="pixel"] .ui-dots { color:var(--accent1); }
+html[data-theme="pixel"] .ui-left { color:var(--accent3); }
+html[data-theme="pixel"] .ui-spin { border-radius:0!important;animation:uistep 0.8s steps(8) infinite!important;border-color:rgba(255,255,255,0.12);border-top-color:var(--accent1); }
+@keyframes uistep {to{transform:rotate(360deg)}}
+html[data-theme="pixel"] .input,
+html[data-theme="pixel"] .select,
+html[data-theme="pixel"] .input-sm { background:#10142a!important;border:2px solid var(--border)!important;color:var(--text)!important; }
+html[data-theme="pixel"] .toggle-slider { background:#2c3254!important; }
+html[data-theme="pixel"] input:checked + .toggle-slider { background:var(--accent1)!important; }
+html[data-theme="pixel"] .toast { border-radius:0!important;border:2px solid var(--border);box-shadow:4px 4px 0 var(--px-shadow); }
+html[data-theme="pixel"] .glow-line { height:4px;border-radius:0;opacity:1; }
+html[data-theme="pixel"] .bot-avatar,
+html[data-theme="pixel"] .bot-avatar-lg { border-radius:0!important;image-rendering:pixelated; }
+html[data-theme="pixel"]::-webkit-scrollbar,
+html[data-theme="pixel"] ::-webkit-scrollbar { width:10px;height:10px; }
+html[data-theme="pixel"]::-webkit-scrollbar-thumb,
+html[data-theme="pixel"] ::-webkit-scrollbar-thumb { background:var(--accent2);border-radius:0; }
+html[data-theme="pixel"]::-webkit-scrollbar-track,
+html[data-theme="pixel"] ::-webkit-scrollbar-track { background:#0c0e1c; }
