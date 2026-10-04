@@ -1,0 +1,30 @@
+{
+  "name": "galaxy-afk-hub",
+  "version": "1.0.0",
+  "description": "Galaxy AFK Minecraft Bot Manager",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "server": "node index.js"
+  },
+  "keywords": [
+    "minecraft",
+    "bot",
+    "mineflayer",
+    "afk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "minecraft-protocol": "https://github.com/Complexity-ML/node-minecraft-protocol-26.2/releases/download/complexity-26.2.3/minecraft-protocol-complexity-26.2.3.tgz",
+    "mineflayer": "https://github.com/Complexity-ML/mineflayer-26.2/releases/download/complexity-26.2.3/mineflayer-complexity-26.2.3.tgz",
+    "mineflayer-pathfinder": "^2.4.5",
+    "vec3": "^0.1.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
